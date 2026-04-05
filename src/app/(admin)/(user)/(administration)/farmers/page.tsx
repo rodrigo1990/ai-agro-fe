@@ -40,6 +40,16 @@ export default function FormElements() {
                   <Label>CUIT</Label>
                   <Input type="text" />
               </div>
+              <div className="grid md:grid-cols-2 md:gap-10 gap-y-4">
+                  <div>
+                      <Label>Usuario productor ai-agro</Label>
+                      <Input type="text" />
+                  </div>
+                  <div>
+                      <Label>Código externo</Label>
+                      <Input type="text" />
+                  </div>
+              </div>
               <div>
                   <Label>Observaciones</Label>
                   <TextAreaInput />
