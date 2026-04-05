@@ -29,23 +29,23 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
           />
         </div>
 
-        {/* Disabled TextArea */}
-        <div>
-          <Label>Description</Label>
-          <TextArea rows={6} disabled />
-        </div>
+        {/*/!* Disabled TextArea *!/*/}
+        {/*<div>*/}
+        {/*  <Label>Description</Label>*/}
+        {/*  <TextArea rows={6} disabled />*/}
+        {/*</div>*/}
 
-        {/* Error TextArea */}
-        <div>
-          <Label>Description</Label>
-          <TextArea
-            rows={6}
-            value={messageTwo}
-            error
-            onChange={(value) => setMessageTwo(value)}
-            hint="Please enter a valid message."
-          />
-        </div>
+        {/*/!* Error TextArea *!/*/}
+        {/*<div>*/}
+        {/*  <Label>Description</Label>*/}
+        {/*  <TextArea*/}
+        {/*    rows={6}*/}
+        {/*    value={messageTwo}*/}
+        {/*    error*/}
+        {/*    onChange={(value) => setMessageTwo(value)}*/}
+        {/*    hint="Please enter a valid message."*/}
+        {/*  />*/}
+        {/*</div>*/}
       </div>
     </ComponentCard>
   );
