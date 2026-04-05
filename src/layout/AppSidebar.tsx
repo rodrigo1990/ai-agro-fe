@@ -46,7 +46,10 @@ const navItems: NavItem[] = [
   {
     name: "Administración",
     icon: <ListIcon />,
-    subItems: [{ name: "Sociedad", path: "/society", pro: false }],
+    subItems: [
+        { name: "Sociedad", path: "/society", pro: false },
+        { name: "Productores", path: "/farmers", pro: false },
+    ],
   },
   // {
   //   name: "Tables",
