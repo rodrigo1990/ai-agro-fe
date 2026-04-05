@@ -4,11 +4,20 @@ import ComponentCard from "../../common/ComponentCard";
 import TextArea from "../input/TextArea";
 import Label from "../Label";
 
-export default function TextAreaInput() {
+
+interface TextAreaInputProps {
+  title?: string;
+  isHeaderActive?:boolean;
+}
+
+const TextAreaInput: React.FC<TextAreaInputProps> = ({
+   title,
+   isHeaderActive = false,
+ }) => {
   const [message, setMessage] = useState("");
   const [messageTwo, setMessageTwo] = useState("");
   return (
-    <ComponentCard title="Textarea input field">
+    <ComponentCard>
       <div className="space-y-6">
         {/* Default TextArea */}
         <div>
@@ -41,3 +50,4 @@ export default function TextAreaInput() {
     </ComponentCard>
   );
 }
+export default TextAreaInput;

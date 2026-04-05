@@ -35,10 +35,14 @@ export default function FormElements() {
                     <Input type="text" />
                 </div>
             </div>
-          <div className="grid grid-cols-1">
+          <div className="grid grid-cols-1 gap-y-6">
               <div>
                   <Label>CUIT</Label>
                   <Input type="text" />
+              </div>
+              <div>
+                  <Label>Observaciones</Label>
+                  <TextAreaInput />
               </div>
           </div>
       </div>
