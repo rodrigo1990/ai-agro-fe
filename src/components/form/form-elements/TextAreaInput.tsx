@@ -7,11 +7,13 @@ import Label from "../Label";
 
 interface TextAreaInputProps {
   title?: string;
+  description?: string;
   isHeaderActive?:boolean;
 }
 
 const TextAreaInput: React.FC<TextAreaInputProps> = ({
    title,
+   description,
    isHeaderActive = false,
  }) => {
   const [message, setMessage] = useState("");
@@ -21,10 +23,11 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
       <div className="space-y-6">
         {/* Default TextArea */}
         <div>
-          <Label>Description</Label>
+           {description && (<Label>{description}</Label>)}
           <TextArea
             value={message}
             onChange={(value) => setMessage(value)}
+            placeholder="Agregá tus observaciones"
             rows={6}
           />
         </div>
