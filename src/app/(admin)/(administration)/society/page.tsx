@@ -24,22 +24,24 @@ export default function FormElements() {
   return (
     <div>
       <PageBreadcrumb pageTitle="Sociedad" />
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <div className="space-y-6">
-            <Label>Razon Social</Label>
-            <Input type="text" />
-          {/*<SelectInputs />*/}
-          {/*<TextAreaInput />*/}
-          {/*<InputStates />*/}
-        </div>
-        <div className="space-y-6">
-          {/*<InputGroup />*/}
-          {/*<FileInputExample />*/}
-          {/*<CheckboxComponents />*/}
-          {/*<RadioButtons />*/}
-          {/*<ToggleSwitch />*/}
-          <DropzoneComponent />
-        </div>
+      <div className="grid xs:grid-cols-1 gap-y-6 xl:grid-cols-2 md:grid-cols-2 md:gap-10">
+            <div className="space-y-6">
+                <Label>Razón  Social</Label>
+                <Input type="text" />
+                <Label>Nº de Identificación Fiscal</Label>
+                <Input type="text" />
+              {/*<SelectInputs />*/}
+              {/*<TextAreaInput />*/}
+              {/*<InputStates />*/}
+            </div>
+            <div className="space-y-6">
+              {/*<InputGroup />*/}
+              {/*<FileInputExample />*/}
+              {/*<CheckboxComponents />*/}
+              {/*<RadioButtons />*/}
+              {/*<ToggleSwitch />*/}
+              <DropzoneComponent title="Foto de perfil"/>
+            </div>
       </div>
     </div>
   );
