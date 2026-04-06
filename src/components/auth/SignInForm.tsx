@@ -8,20 +8,23 @@ import Link from "next/link";
 import React, { useState } from "react";
 import api from '@/lib/axios';
 import { useRouter } from 'next/navigation';
+import Alert from "@/components/ui/alert/Alert";
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async () => {
     await api.get('/sanctum/csrf-cookie').then(async response => {
       await api.post('/api/login', {email, password}).then(response => {
-          router.push(response.data.redirect);
+          router.push('/');
       })
     }).catch(error => {
+      setAlert(true);
       console.log(error);
     });
   }
@@ -91,7 +94,6 @@ export default function SignInForm() {
                 </span>
               </div>
             </div>
-            {/*<form>*/}
               <div className="space-y-6">
                 <div>
                   <Label>
@@ -140,13 +142,18 @@ export default function SignInForm() {
                     Has olvidado tu contraseña?
                   </Link>
                 </div>
+                {alert && (
+                    <div>
+                      <Alert variant={'error'} title={'Datos incorrectos'} message={'Tu email o contraseña son incorrectos'} />
+                    </div>
+                )}
                 <div>
                   <Button className="w-full" size="sm" onClick={handleSubmit}>
                     Iniciar sesión
                   </Button>
                 </div>
+
               </div>
-            {/*</form>*/}
 
             <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
