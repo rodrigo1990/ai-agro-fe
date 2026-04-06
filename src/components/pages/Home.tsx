@@ -1,3 +1,4 @@
+'use client'
 import api from "@/lib/axios";
 import {EcommerceMetrics} from "@/components/ecommerce/EcommerceMetrics";
 import MonthlySalesChart from "@/components/ecommerce/MonthlySalesChart";
@@ -5,9 +6,11 @@ import MonthlyTarget from "@/components/ecommerce/MonthlyTarget";
 import StatisticsChart from "@/components/ecommerce/StatisticsChart";
 import DemographicCard from "@/components/ecommerce/DemographicCard";
 import RecentOrders from "@/components/ecommerce/RecentOrders";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-export default async function Ecommerce() {
+export default function Ecommerce() {
+    const router = useRouter();
     const isAuthenticated = async () => {
         await api.get('/api/user').then(async response => {
             console.log(response)
