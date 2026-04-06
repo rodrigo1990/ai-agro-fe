@@ -6,10 +6,27 @@ import Button from "@/components/ui/button/Button";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
+import api from '@/lib/axios';
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async () => {
+    alert('This is your email: ' + email + ' and your password: ' + password + '')
+    alert('Submitting =)');
+    await api.get('/sanctum/csrf-cookie').then(async response => {
+      console.log(response);
+      await api.post('/api/login', {email, password}).then(response => {
+          alert('You are logged in!');
+      })
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full">
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
@@ -75,13 +92,17 @@ export default function SignInForm() {
                 </span>
               </div>
             </div>
-            <form>
+            {/*<form>*/}
               <div className="space-y-6">
                 <div>
                   <Label>
                     Email <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="info@gmail.com" type="email" />
+                  <Input placeholder="info@gmail.com"
+                         type="email"
+                         defaultValue={email}
+                         onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div>
                   <Label>
@@ -91,6 +112,8 @@ export default function SignInForm() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
+                      defaultValue={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
@@ -119,12 +142,12 @@ export default function SignInForm() {
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm">
+                  <Button className="w-full" size="sm" onClick={handleSubmit}>
                     Sign in
                   </Button>
                 </div>
               </div>
-            </form>
+            {/*</form>*/}
 
             <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
