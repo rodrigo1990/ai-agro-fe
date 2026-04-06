@@ -7,20 +7,19 @@ import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
 import api from '@/lib/axios';
+import { useRouter } from 'next/navigation';
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async () => {
-    alert('This is your email: ' + email + ' and your password: ' + password + '')
-    alert('Submitting =)');
     await api.get('/sanctum/csrf-cookie').then(async response => {
-      console.log(response);
       await api.post('/api/login', {email, password}).then(response => {
-          alert('You are logged in!');
+          router.push(response.data.redirect);
       })
     }).catch(error => {
       console.log(error);
