@@ -24,8 +24,7 @@ export default function SignInForm() {
           router.push('/');
       })
     }).catch(error => {
-      setAlert(true);
-      console.log(error);
+      (error.status === 401) ? setAlert(true) : console.log(error);
     });
   }
 
