@@ -10,19 +10,6 @@ import { useRouter } from "next/navigation";
 import React, {useEffect} from "react";
 
 export default function Ecommerce() {
-    const router = useRouter();
-    const isAuthenticated = async () => {
-        await api.get('/api/user').then(async response => {
-            console.log(response)
-        }).catch(error => {
-            router.push('/signin')
-            console.log(error);
-        })
-    }
-    useEffect(() => {
-        isAuthenticated()
-    })
-
     return (
         <div className="grid grid-cols-12 gap-4 md:gap-6">
             <div className="col-span-12 space-y-6 xl:col-span-7">
