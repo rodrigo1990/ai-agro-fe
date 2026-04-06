@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import api from "@/lib/axios";
 
 const isAuthenticated = async (xsrfToken?: string, laravelSession?: string) => {
-    const res = await api.get('/api/user', {
+    return await api.get('/api/user', {
         headers: {
             Cookie: `XSRF-TOKEN=${xsrfToken}; laravel-session=${laravelSession}` , // 🔥 forward cookies
             "Accept": "application/json",
@@ -26,7 +26,6 @@ const isAuthenticated = async (xsrfToken?: string, laravelSession?: string) => {
     }).catch(error => {
         return false;
     });
-    return res;
 }
 
 // This function can be marked `async` if using `await` inside
