@@ -21,7 +21,8 @@ export default function SignInForm() {
   const handleSubmit = async () => {
     await api.get('/sanctum/csrf-cookie').then(async response => {
       await api.post('/api/login', {email, password}).then(response => {
-          router.push('/');
+          console.log(response.data);
+          router.push('/user');
       })
     }).catch(error => {
       (error.status === 401) ? setAlert(true) : console.log(error);
