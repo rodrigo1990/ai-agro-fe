@@ -3,11 +3,10 @@ import Checkbox from "@/components/form/input/Checkbox";
 import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import Button from "@/components/ui/button/Button";
-import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
+import { EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
-import api from '@/lib/axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 import Alert from "@/components/ui/alert/Alert";
 
 export default function SignInForm() {
@@ -16,17 +15,23 @@ export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(false);
-  const router = useRouter();
 
-  const handleSubmit = async () => {
-    await api.get('/sanctum/csrf-cookie').then(async response => {
-      await api.post('/api/login', {email, password}).then(response => {
-          console.log(response.data);
-          router.push('/user');
-      })
-    }).catch(error => {
-      (error.status === 401) ? setAlert(true) : console.log(error);
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const formData = JSON.stringify({email:email, password:password})
+    const response = await fetch('/api/auth/signin', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: formData,
     });
+
+    if (response.ok) {
+        redirect('/user')
+    }else{
+      setAlert(true)
+    }
   }
 
   return (
@@ -94,6 +99,7 @@ export default function SignInForm() {
                 </span>
               </div>
             </div>
+            <form onSubmit={handleSubmit}>
               <div className="space-y-6">
                 <div>
                   <Label>
@@ -148,13 +154,13 @@ export default function SignInForm() {
                     </div>
                 )}
                 <div>
-                  <Button className="w-full" size="sm" onClick={handleSubmit}>
+                  <Button className="w-full" size="sm">
                     Iniciar sesión
                   </Button>
                 </div>
 
               </div>
-
+            </form>
             <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
                 Es tu primera vez con <b>ai-Agro?</b> {""}
