@@ -1,5 +1,6 @@
 import api from '@/lib/axios';
 import type {NextRequest} from "next/server";
+import { cookies } from 'next/headers'
 
 export async function POST(
     request: NextRequest
@@ -8,8 +9,10 @@ export async function POST(
     const {email, password} = await request.json()
     const response = await api.get('/sanctum/csrf-cookie')
         .then(async response => {
+            const cookieStore = await cookies()
             const xsrfToken = getXsrfToken(response.headers['set-cookie'], 'XSRF-TOKEN');
-            const laravelSession = getXsrfToken(response.headers['set-cookie'], 'laravel-session');
+            let laravelSession = getXsrfToken(response.headers['set-cookie'], 'laravel-session');
+
             return await api.post('/api/login',
                 {email, password},
                 {
@@ -23,6 +26,11 @@ export async function POST(
 
                     },
                 }).then(response => {
+                    laravelSession = getXsrfToken(response.headers['set-cookie'], 'laravel-session');
+                    cookieStore.delete('XSRF-TOKEN');
+                    cookieStore.set({name:'XSRF-TOKEN',value:xsrfToken})
+                    cookieStore.delete('laravel-session');
+                    cookieStore.set({name:'laravel-session',value:laravelSession})
                     console.log(response.data);
                     return {data:response.data, status: 200};
                 })

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import api from "@/lib/axios";
+import {cookies} from "next/headers";
 
 const isAuthenticated = async (xsrfToken?: string, laravelSession?: string) => {
     return await api.get('/api/user', {
@@ -8,15 +9,9 @@ const isAuthenticated = async (xsrfToken?: string, laravelSession?: string) => {
             Cookie: `XSRF-TOKEN=${xsrfToken}; laravel-session=${laravelSession}` , // 🔥 forward cookies
             "Accept": "application/json",
             "Content-Type": "application/json",
-            'X-XSRF-TOKEN': `${xsrfToken}`,
+            'X-XSRF-TOKEN': `${decodeURIComponent(xsrfToken)}`,
             'origin': 'http://localhost:3000',
             'referer': 'http://localhost:3000/',
-            'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="124", "Chromium";v="124"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-site',
 
         },
     }).then(async response => {
@@ -30,8 +25,11 @@ const isAuthenticated = async (xsrfToken?: string, laravelSession?: string) => {
 
 // This function can be marked `async` if using `await` inside
 export async function proxy(request: NextRequest) {
-    const xsrfToken = request.cookies.get('XSRF-TOKEN')?.value
-    const laravelSession = request.cookies.get('laravel-session')?.value
+    const cookieStore = await cookies()
+    const xsrfToken = cookieStore.get('XSRF-TOKEN')?.value
+    const laravelSession = cookieStore.get('laravel-session')?.value
+
+
     if (await isAuthenticated(xsrfToken, laravelSession))
         return NextResponse.next()
     else
