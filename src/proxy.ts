@@ -3,17 +3,9 @@ import type { NextRequest } from 'next/server'
 import {cookies} from "next/headers";
 import {decrypt} from "@/app/lib/sessions";
 
-const isAuthenticated = async (req: NextRequest) => {
-
-
-
-
-}
-
 // This function can be marked `async` if using `await` inside
 export async function proxy(request: NextRequest) {
-    const cookie = console.log('cookie again', (await cookies()).get('session')?.value)
-    console.log('cookie decrypt',cookie);
+    const cookie = (await cookies()).get('session')?.value
     const session = await decrypt(cookie)
 
     if (!session?.userId)

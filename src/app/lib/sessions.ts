@@ -34,8 +34,6 @@ export async function createSession(userId: string) {
         secure: true,
         expires: expiresAt,
         sameSite: 'lax',
-        path: '/',
+        path: '/user',
     })
-
-    console.log('cookie again', (await cookies()).get('session')?.value)
 }

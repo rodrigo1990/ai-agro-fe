@@ -8,6 +8,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter, redirect } from 'next/navigation';
 import Alert from "@/components/ui/alert/Alert";
+import {login} from "@/app/actions/login";
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,17 +19,10 @@ export default function SignInForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const formData = JSON.stringify({email:email, password:password})
-    const response = await fetch('/api/auth/signin', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: formData,
-    });
+    const response = await login(email, password)
 
-    if (response.ok) {
-        redirect('/user')
+    if (response.success) {
+      redirect('/user')
     }else{
       setAlert(true)
     }

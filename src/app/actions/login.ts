@@ -1,12 +1,11 @@
-import api from '@/lib/axios';
-import type {NextRequest} from "next/server";
+'use server'
+import api from "@/lib/axios";
 import {createSession} from "@/app/lib/sessions";
 
-export async function POST(
-    request: NextRequest
+export async function login(
+    email: string,
+    password: string,
 ) {
-    console.log('hi from signin route');
-    const {email, password} = await request.json()
     const response = await api.post('/api/login',
         {email, password})
         .then(res => {
@@ -21,12 +20,10 @@ export async function POST(
     if(response.status == 200)
     {
         api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
-        createSession(response.data.user_id)
+        await createSession(response.data.user_id)
+        return {success: true}
     }
 
 
-    return new Response('',{
-        status: response.status
-    })
+    return {success: false}
 }
-
