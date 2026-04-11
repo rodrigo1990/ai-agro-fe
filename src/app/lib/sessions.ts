@@ -1,11 +1,7 @@
 import 'server-only'
-import { SignJWT, jwtVerify } from 'jose'
 import {cookies} from "next/headers";
 import {encrypt} from "@/app/lib/jwt";
-import {decrypt} from "@/app/lib/jwt";
 
-const secretKey = process.env.SESSION_SECRET
-const encodedKey = new TextEncoder().encode(secretKey)
 
 
 export async function createSession(user: Object, token: string) {
