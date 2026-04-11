@@ -10,7 +10,7 @@ export async function login(
         {email, password})
         .then(res => {
             console.log(res.data.token);
-            console.log(res.data.user_id);
+            console.log(res.data.user);
             return res;
         })
         .catch(error => {
@@ -19,8 +19,7 @@ export async function login(
 
     if(response.status == 200)
     {
-        api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
-        await createSession(response.data.user_id)
+        await createSession(response.data.user, response.data.token)
         return {success: true}
     }
 

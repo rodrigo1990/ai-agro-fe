@@ -6,10 +6,8 @@ import {decrypt} from "@/app/lib/jwt";
 // This function can be marked `async` if using `await` inside
 export async function proxy(request: NextRequest) {
     const cookie = (await cookies()).get('session')?.value
-    console.log('proxy session cookie',cookie);
     const session = await decrypt(cookie)
-
-    if (!session?.userId)
+    if (!session?.user)
         return NextResponse.redirect(new URL('/auth/signin', request.url));
     else
         return NextResponse.next()
