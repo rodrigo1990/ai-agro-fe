@@ -1,9 +1,8 @@
 'use server'
 import {cookies} from "next/headers";
 import {decrypt} from "@/app/lib/jwt";
+import {getSession} from "@/app/lib/sessions";
 
 export async function auth(): Promise<any> {
-    console.log('authUser')
-    console.log((await cookies()).get('session').value)
-    return (await decrypt((await cookies()).get('session').value)).user
+    return await getSession()
 }

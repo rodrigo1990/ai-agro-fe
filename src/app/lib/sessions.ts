@@ -1,6 +1,6 @@
 import 'server-only'
 import {cookies} from "next/headers";
-import {encrypt} from "@/app/lib/jwt";
+import {decrypt, encrypt} from "@/app/lib/jwt";
 
 
 
@@ -22,4 +22,10 @@ export async function createSession(user: Object, token: string) {
         sameSite: 'lax',
         path: '/user',
     })
+}
+
+export async function getSession(): Promise<any> {
+    console.log('authUser')
+    console.log((await cookies()).get('session').value)
+    return (await decrypt((await cookies()).get('session').value)).user
 }
