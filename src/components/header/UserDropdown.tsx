@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, {useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, {useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import Button from "@/components/ui/button/Button";
@@ -9,11 +8,9 @@ import {signout} from "@/app/actions/signout";
 
 export default function UserDropdown({auth}) {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
 
   const handleLogout = async () => {
     await signout()
-    // router.push('/auth/signin')
   }
 
   function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
