@@ -9,23 +9,19 @@ export async function createSession(user: Object, token: string) {
     const session = await encrypt({ user, expiresAt })
     const cookieStore = await cookies()
     cookieStore.set('session', session, {
-        httpOnly: true,
-        secure: true,
+        httpOnly: false,
+        secure: false,
         expires: expiresAt,
         sameSite: 'lax',
-        path: '/user',
     })
     cookieStore.set('bearer-token',token,{
-        httpOnly: true,
-        secure: true,
+        httpOnly: false,
+        secure: false,
         expires: expiresAt,
         sameSite: 'lax',
-        path: '/user',
     })
 }
 
 export async function getSession(): Promise<any> {
-    console.log('authUser')
-    console.log((await cookies()).get('session').value)
     return (await decrypt((await cookies()).get('session').value)).user
 }
