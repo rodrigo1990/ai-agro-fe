@@ -10,20 +10,20 @@ export async function proxy(request: NextRequest) {
     try{
         cookie = await getSession()
     }catch (e) {
-        return NextResponse.redirect(new URL('/auth/signin', request.url));
+        return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
     if (request.nextUrl.pathname.startsWith('/user')) {
 
         if (!cookie)
-            return NextResponse.redirect(new URL('/auth/signin', request.url));
+            return NextResponse.redirect(new URL('/auth/login', request.url));
         else
             return NextResponse.next();
     }
 
     if (request.nextUrl.pathname == '/') {
         if (!cookie)
-            return NextResponse.redirect(new URL('/auth/signin', request.url));
+            return NextResponse.redirect(new URL('/auth/login', request.url));
         else
             return NextResponse.redirect(new URL('/user', request.url));
     }
@@ -31,5 +31,5 @@ export async function proxy(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/user/:path*', '/signout', '/'],
+    matcher: ['/user/:path*', '/logout', '/'],
 }

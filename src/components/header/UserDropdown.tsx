@@ -4,13 +4,13 @@ import React, {useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import Button from "@/components/ui/button/Button";
-import {signout} from "@/app/actions/signout";
+import {logout} from "@/app/actions/logout";
 
 export default function UserDropdown({auth}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = async () => {
-    await signout()
+    await logout()
   }
 
   function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
