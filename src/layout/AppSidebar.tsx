@@ -47,8 +47,8 @@ const navItems: NavItem[] = [
     name: "Administración",
     icon: <ListIcon />,
     subItems: [
-        { name: "Sociedad", path: "/society", pro: false },
-        { name: "Productores", path: "/farmers", pro: false },
+        { name: "Sociedad", path: "/user/administration/society", pro: false },
+        { name: "Productores", path: "/user/administration/farmers", pro: false },
     ],
   },
   // {
@@ -91,8 +91,8 @@ const othersItems: NavItem[] = [
     icon: <PlugInIcon />,
     name: "Authentication",
     subItems: [
-      { name: "Sign In", path: "/signin", pro: false },
-      { name: "Sign Up", path: "/signup", pro: false },
+      { name: "Sign In", path: "/auth/signin", pro: false },
+      { name: "Sign Up", path: "/auth/signup", pro: false },
     ],
   },
 ];
