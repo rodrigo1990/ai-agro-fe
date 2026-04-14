@@ -13,7 +13,7 @@ export async function proxy(request: NextRequest) {
         return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
-    if (request.nextUrl.pathname.startsWith('/user')) {
+    if (request.nextUrl.pathname.startsWith('/dashboard')) {
 
         if (!cookie)
             return NextResponse.redirect(new URL('/auth/login', request.url));
@@ -25,11 +25,11 @@ export async function proxy(request: NextRequest) {
         if (!cookie)
             return NextResponse.redirect(new URL('/auth/login', request.url));
         else
-            return NextResponse.redirect(new URL('/user', request.url));
+            return NextResponse.redirect(new URL('/dashboard', request.url));
     }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/user/:path*', '/logout', '/'],
+    matcher: ['/dashboard/:path*', '/logout', '/'],
 }

@@ -47,8 +47,8 @@ const navItems: NavItem[] = [
     name: "Administración",
     icon: <ListIcon />,
     subItems: [
-        { name: "Sociedad", path: "/user/administration/society", pro: false },
-        { name: "Productores", path: "/user/administration/farmers", pro: false },
+        { name: "Sociedad", path: "/dashboard/administration/society", pro: false },
+        { name: "Productores", path: "/dashboard/administration/farmers", pro: false },
     ],
   },
   // {
