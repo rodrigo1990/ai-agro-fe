@@ -26,3 +26,7 @@ export async function createSession(user: Object, token: string) {
 export async function getSession(): Promise<any> {
     return (await decrypt((await cookies()).get('session').value)).user
 }
+
+export async function getToken(): Promise<any> {
+    return (await decrypt((await cookies()).get('bearer-token').value))
+}
