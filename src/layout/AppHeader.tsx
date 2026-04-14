@@ -6,11 +6,22 @@ import { useSidebar } from "@/context/SidebarContext";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState ,useEffect,useRef} from "react";
+import {auth} from "@/app/actions/auth";
 
-const AppHeader: React.FC = ({auth}) => {
+
+const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const getAuthUser = async () => {
+      setUser(await auth())
+    }
+    getAuthUser()
+    console.log("effect user");
+  }, []);
 
   const handleToggle = () => {
     if (window.innerWidth >= 1024) {
@@ -169,7 +180,7 @@ const AppHeader: React.FC = ({auth}) => {
             {/* <!-- Notification Menu Area --> */}
           </div>
           {/* <!-- User Area --> */}
-          <UserDropdown auth={auth}/>
+          <UserDropdown auth={user}/>
     
         </div>
       </div>
