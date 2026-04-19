@@ -6,7 +6,7 @@ import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
 import {save} from "@/app/actions/society/save";
-import {getId} from "@/app/actions/society/getId";
+import {get} from "@/app/actions/society/get";
 import Alert from "@/components/ui/alert/Alert";
 import Loading from "@/app/dashboard/loading";
 
@@ -27,7 +27,7 @@ export default function SocietyForm() {
     useEffect(() => {
         async function getSociety () {
             setLoading(true)
-            const society = await getId()
+            const society = await get()
             setName(society.content.business_name)
             setTaxId(society.content.tax_id)
             setLoading(false)

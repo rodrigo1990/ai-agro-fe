@@ -2,7 +2,7 @@
 import api from "@/lib/axios";
 import {createSession, getToken} from "@/app/lib/sessions";
 
-export async function getId(
+export async function get(
     society: Object,
 ) {
     const token = await getToken()
