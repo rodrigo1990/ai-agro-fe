@@ -1,18 +1,10 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import CheckboxComponents from "@/components/form/form-elements/CheckboxComponents";
-import DefaultInputs from "@/components/form/form-elements/DefaultInputs";
 import DropzoneComponent from "@/components/form/form-elements/DropZone";
-import FileInputExample from "@/components/form/form-elements/FileInputExample";
-import InputGroup from "@/components/form/form-elements/InputGroup";
-import InputStates from "@/components/form/form-elements/InputStates";
-import RadioButtons from "@/components/form/form-elements/RadioButtons";
-import SelectInputs from "@/components/form/form-elements/SelectInputs";
-import TextAreaInput from "@/components/form/form-elements/TextAreaInput";
-import ToggleSwitch from "@/components/form/form-elements/ToggleSwitch";
 import { Metadata } from "next";
 import React from "react";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
+import Button from "@/components/ui/button/Button";
 
 export const metadata: Metadata = {
   title: "Next.js Form Elements | TailAdmin - Next.js Dashboard Template",
@@ -30,9 +22,20 @@ export default function FormElements() {
                 <Input type="text" />
                 <Label>Nº de Identificación Fiscal</Label>
                 <Input type="text" />
-              {/*<SelectInputs />*/}
-              {/*<TextAreaInput />*/}
-              {/*<InputStates />*/}
+                <Button
+                    className="flex items-center
+                    gap-3
+                    px-3
+                    py-2
+                    mt-3
+                    font-medium
+                    text-gray-700
+                    rounded-lg
+                    group
+                    text-theme-sm"
+                >
+                    Guardar
+                </Button>
             </div>
             <div className="space-y-6">
               {/*<InputGroup />*/}
