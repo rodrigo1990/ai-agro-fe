@@ -1,13 +1,13 @@
 'use client'
 import DropzoneComponent from "@/components/form/form-elements/DropZone";
 import { Metadata } from "next";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
-import {redirect} from "next/navigation";
 import {save} from "@/app/actions/society/save";
 import {getId} from "@/app/actions/society/getId";
+import Alert from "@/components/ui/alert/Alert";
 
 export const metadata: Metadata = {
   title: "Next.js Form Elements | TailAdmin - Next.js Dashboard Template",
@@ -18,27 +18,32 @@ export const metadata: Metadata = {
 
 export default function SocietyForm() {
     const [name, setName] = useState(null);
-    const [id, setId] = useState(null);
+    const [taxId, setTaxId] = useState(null);
+    const [successs, setSuccesss] = useState(false);
+    const [alert, setAlert] = useState(false);
 
     useEffect(() => {
         async function getSociety () {
-            setName((await getId()).content.business_name)
-            setId((await getId()).content.tax_id)
+            const society = (await getId())
+            setName(society.content.business_name)
+            setTaxId(society.content.tax_id)
         }
         getSociety()
-    })
+    },[])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         const response = await save({
             'name': name,
-            'id' : id
+            'tax_id' : taxId
         })
 
         if (response.success) {
-            redirect('/dashboard')
+            setSuccesss(true)
+            setAlert(false)
         }else{
-            // setAlert(true)
+            setSuccesss(false)
+            setAlert(true)
         }
     }
 
@@ -48,7 +53,7 @@ export default function SocietyForm() {
             <Label>Razón  Social</Label>
             <Input type="text" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
             <Label>Nº de Identificación Fiscal</Label>
-            <Input type="text" defaultValue={id} onChange={(e) => setId(e.target.value)} />
+            <Input type="text" defaultValue={taxId} onChange={(e) => setTaxId(e.target.value)} />
             <Button
                 className="flex items-center
                 gap-3
@@ -64,6 +69,14 @@ export default function SocietyForm() {
             >
                 Guardar
             </Button>
+
+            {successs && (
+                <Alert variant={'success'} title={'Datos guardados'} message={'Los datos han sido guardados correctamente'} />
+            )}
+            {alert && (
+                <Alert variant={'error'} title={'Datos incorrectos'} message={'Los datos ingresados son incorrectos'} />
+            )}
+
         </div>
         <div className="space-y-6">
         <DropzoneComponent title="Foto de perfil"/>
