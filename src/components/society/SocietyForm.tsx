@@ -1,13 +1,13 @@
 'use client'
 import DropzoneComponent from "@/components/form/form-elements/DropZone";
 import { Metadata } from "next";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
-import {login} from "@/app/actions/login";
 import {redirect} from "next/navigation";
 import {save} from "@/app/actions/society/save";
+import {getId} from "@/app/actions/society/getId";
 
 export const metadata: Metadata = {
   title: "Next.js Form Elements | TailAdmin - Next.js Dashboard Template",
@@ -15,25 +15,40 @@ export const metadata: Metadata = {
     "This is Next.js Form Elements page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
-const handleSubmit = async (event) => {
-    event.preventDefault()
-    const response = await save({})
-
-    if (response.success) {
-        redirect('/dashboard')
-    }else{
-        // setAlert(true)
-    }
-}
 
 export default function SocietyForm() {
-  return (
+    const [name, setName] = useState(null);
+    const [id, setId] = useState(null);
+
+    useEffect(() => {
+        async function getSociety () {
+            setName((await getId()).content.business_name)
+            setId((await getId()).content.tax_id)
+        }
+        getSociety()
+    })
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        const response = await save({
+            'name': name,
+            'id' : id
+        })
+
+        if (response.success) {
+            redirect('/dashboard')
+        }else{
+            // setAlert(true)
+        }
+    }
+
+    return (
       <div className="grid xs:grid-cols-1 gap-y-6 xl:grid-cols-2 md:grid-cols-2 md:gap-10">
         <div className="space-y-6">
             <Label>Razón  Social</Label>
-            <Input type="text" />
+            <Input type="text" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
             <Label>Nº de Identificación Fiscal</Label>
-            <Input type="text" />
+            <Input type="text" defaultValue={id} onChange={(e) => setId(e.target.value)} />
             <Button
                 className="flex items-center
                 gap-3
@@ -45,6 +60,7 @@ export default function SocietyForm() {
                 rounded-lg
                 group
                 text-theme-sm"
+                onClick={handleSubmit}
             >
                 Guardar
             </Button>
