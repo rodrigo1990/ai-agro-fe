@@ -35,7 +35,7 @@ export default function FormElements() {
     }
   return (
     <div>
-      <PageBreadcrumb pageTitle="Productores" />
+      <PageBreadcrumb pageTitle="Detalle" />
       <div className="grid grid-cols-1 gap-y-6">
           <form action={handleSubmit}>
             <div className="grid md:grid-cols-2 md:gap-10 gap-y-4">
