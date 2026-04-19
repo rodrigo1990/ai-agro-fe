@@ -56,7 +56,7 @@ export default function SocietyForm() {
     return (
       <div>
             {loading ?
-                (<Loading text={'Cargando...'}/>)
+                (<Loading text={'Cargando'}/>)
                 : (
                 <div className="grid xs:grid-cols-1 gap-y-6 xl:grid-cols-2 md:grid-cols-2 md:gap-10">
                     <div className="space-y-6">
