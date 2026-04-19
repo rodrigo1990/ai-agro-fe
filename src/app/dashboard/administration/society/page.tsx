@@ -1,6 +1,6 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Metadata } from "next";
-import React from "react";
+import React, {Suspense} from "react";
 import SocietyForm from "@/components/society/SocietyForm";
 
 export const metadata: Metadata = {
@@ -14,9 +14,11 @@ export default function FormElements() {
   return (
     <div>
       <PageBreadcrumb pageTitle="Sociedad" />
-      <div>
-          <SocietyForm />
-      </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div>
+              <SocietyForm />
+          </div>
+        </Suspense>
     </div>
   );
 }
