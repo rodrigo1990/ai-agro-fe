@@ -6,7 +6,6 @@ export async function get(
     society: Object,
 ) {
     const token = await getToken()
-    console.log(token);
     const response = await api.get('/api/society/',
         {
             headers: {
