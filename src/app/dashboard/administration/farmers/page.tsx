@@ -78,9 +78,9 @@ export default async function FormElements() {
                                   <TableCell className="py-3">
                                       <div className="flex items-center gap-3">
                                           <div>
-                                              <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                                              <Link href={`/dashboard/administration/farmers/detail/${farmer.id}`} className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
                                                   Editar
-                                              </p>
+                                              </Link>
                                           </div>
                                       </div>
                                   </TableCell>
