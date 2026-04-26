@@ -10,6 +10,7 @@ import {getToken} from "@/app/lib/sessions";
 import api from "@/lib/axios";
 import {save} from "@/app/actions/society/save";
 import {revalidatePath} from "next/cache";
+import {redirect} from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Next.js Form Elements | TailAdmin - Next.js Dashboard Template",
@@ -17,7 +18,8 @@ export const metadata: Metadata = {
     "This is Next.js Form Elements page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
-export default async function FormElements() {
+export default async function FormElements({ searchParams }: { searchParams: Promise<{ saved?: string }> }) {
+  const { saved } = await searchParams
   const token = await getToken()
   let society = await getSociety()
   async function  getSociety() {
@@ -43,6 +45,9 @@ export default async function FormElements() {
       })
       if (response.success) {
         revalidatePath('/dashboard/administration/society')
+        redirect('/dashboard/administration/society?saved=true')
+      } else {
+        redirect('/dashboard/administration/society?saved=false')
       }
     }
 
@@ -70,8 +75,8 @@ export default async function FormElements() {
                     text-theme-sm">
                     Guardar
                   </Button>
-                  <Alert variant={'success'} title={'Datos guardados'} message={'Los datos han sido guardados correctamente'} />
-                  <Alert variant={'error'} title={'Datos incorrectos'} message={'Los datos ingresados son incorrectos'} />
+                  {saved === 'true' && <Alert variant={'success'} title={'Datos guardados'} message={'Los datos han sido guardados correctamente'} />}
+                  {saved === 'false' && <Alert variant={'error'} title={'Error'} message={'No se pudieron guardar los datos'} />}
                 </form>
               </div>
               <div className="space-y-6">
