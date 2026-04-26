@@ -17,23 +17,12 @@ export const metadata: Metadata = {
 };
 
 
-export default function SocietyForm() {
-    const [name, setName] = useState(null);
-    const [taxId, setTaxId] = useState(null);
+export default function SocietyForm({society}: { society: any}) {
+    const [name, setName] = useState(society.business_name);
+    const [taxId, setTaxId] = useState(society.tax_id);
     const [successs, setSuccesss] = useState(false);
     const [alert, setAlert] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        async function getSociety () {
-            setLoading(true)
-            const society = await get()
-            setName(society.content.business_name)
-            setTaxId(society.content.tax_id)
-            setLoading(false)
-        }
-        getSociety()
-    }, [])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
