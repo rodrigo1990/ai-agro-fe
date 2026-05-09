@@ -5,7 +5,7 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
-import {save} from "@/app/actions/society/save";
+import {saveOrUpdate} from "@/app/actions/farmers/saveOrUpdate";
 import {get} from "@/app/actions/society/get";
 import Alert from "@/components/ui/alert/Alert";
 import Loading from "@/app/dashboard/loading";
@@ -18,9 +18,14 @@ export const metadata: Metadata = {
 };
 
 
-export default function FarmerDetailForm({farmer}: { farmer: any}) {
+export default function FarmerDetailForm(
+    {id, farmer}: { id: Number|null, farmer: any}
+) {
     console.log('farmer from detail form')
     console.log(farmer)
+    console.log('farmer id prop from defail form')
+    console.log(id)
+    const [idState, setIdState] = useState<Number>(id);
     const [name, setName] = useState<string>(farmer?.name);
     const [lastName, setLastName] = useState<string>(farmer?.last_name);
     const [taxId, setTaxId] = useState<string>(farmer?.tax_id);
@@ -33,9 +38,9 @@ export default function FarmerDetailForm({farmer}: { farmer: any}) {
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
         setLoading(true)
-        const response = await save({
+        const response = await saveOrUpdate({
+            'id': idState,
             'name': name,
             'last_name': lastName,
             'tax_id' : taxId,
@@ -62,17 +67,17 @@ export default function FarmerDetailForm({farmer}: { farmer: any}) {
                         <div className="grid md:grid-cols-2 md:gap-10 gap-y-4">
                             <div>
                                 <Label>Nombre</Label>
-                                <Input type="text" name="name" defaultValue={name}/>
+                                <Input type="text" name="name" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
                             </div>
                             <div>
                                 <Label>Apellido</Label>
-                                <Input type="text" name="last_name" defaultValue={lastName}/>
+                                <Input type="text" name="last_name" defaultValue={lastName} onChange={(e) => setLastName(e.target.value)}/>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 gap-y-6">
                             <div>
                                 <Label>CUIT</Label>
-                                <Input type="text" name="cuit"  defaultValue={taxId}/>
+                                <Input type="text" name="cuit"  defaultValue={taxId} onChange={(e) => setTaxId(e.target.value)}/>
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-10 gap-y-4">
                                 <div>
@@ -81,7 +86,7 @@ export default function FarmerDetailForm({farmer}: { farmer: any}) {
                                 </div>
                                 <div>
                                     <Label>Código externo</Label>
-                                    <Input type="text" name="ext_code" defaultValue={externalCode}/>
+                                    <Input type="text" name="ext_code" defaultValue={externalCode} onChange={(e) => setExternalCode(e.target.value)}/>
                                 </div>
                             </div>
                             <div>

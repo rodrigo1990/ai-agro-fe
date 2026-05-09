@@ -12,11 +12,12 @@ export const metadata: Metadata = {
 
 export default async function FormElements({params}:{params: Promise<{slug: string}>}) {
     const token = await getToken()
-    const { slug } = await params
+    let { slug } = await params
+    slug = Number(slug)
     let farmer = await getFarmer(slug)
     console.log('farmer')
     console.log(farmer)
-    async function  getFarmer(slug: string) {
+    async function  getFarmer(slug) {
         return await api.get('/api/farmer/'+slug,
             {
                 headers: {
@@ -34,7 +35,7 @@ export default async function FormElements({params}:{params: Promise<{slug: stri
     <div>
       <PageBreadcrumb pageTitle="Detalle" />
       <div className="grid grid-cols-1 gap-y-6">
-          <FarmerDetailForm farmer={farmer} />
+          <FarmerDetailForm id={slug} farmer={farmer} />
       </div>
     </div>
   );
