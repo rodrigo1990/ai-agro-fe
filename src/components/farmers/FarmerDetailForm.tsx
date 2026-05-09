@@ -1,7 +1,7 @@
 'use client'
 import DropzoneComponent from "@/components/form/form-elements/DropZone";
 import { Metadata } from "next";
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
@@ -25,6 +25,7 @@ export default function FarmerDetailForm(
     console.log(farmer)
     console.log('farmer id prop from defail form')
     console.log(id)
+    const formTopRef = useRef<HTMLDivElement>(null);
     const [idState, setIdState] = useState<Number>(id);
     const [name, setName] = useState<string>(farmer?.name);
     const [lastName, setLastName] = useState<string>(farmer?.last_name);
@@ -51,6 +52,8 @@ export default function FarmerDetailForm(
         if (response.success) {
             setSuccesss(true)
             setAlert(false)
+            window.scrollTo(0, 0);
+            
         }else{
             setSuccesss(false)
             setAlert(true)
@@ -59,11 +62,17 @@ export default function FarmerDetailForm(
     }
 
     return (
-        <div>
+        <div ref={formTopRef}>
             {loading ?
                 (<Loading text={'Cargando'}/>)
                 : (
                     <form action={handleSubmit}>
+                        {successs && (
+                            <Alert variant={'success'} title={'Datos guardados'} message={'Los datos han sido guardados correctamente'} />
+                        )}
+                        {alert && (
+                            <Alert variant={'error'} title={'Datos incorrectos'} message={'Los datos ingresados son incorrectos'} />
+                        )}
                         <div className="grid md:grid-cols-2 md:gap-10 gap-y-4">
                             <div>
                                 <Label>Nombre</Label>
@@ -97,7 +106,9 @@ export default function FarmerDetailForm(
                         <div className="flex justify-end">
                             <Button className="float-right">Guardar productor</Button>
                         </div>
+
                     </form>
+
                 )}
 
 
