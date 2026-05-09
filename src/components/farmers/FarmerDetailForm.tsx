@@ -1,12 +1,10 @@
 'use client'
-import DropzoneComponent from "@/components/form/form-elements/DropZone";
 import { Metadata } from "next";
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
 import {saveOrUpdate} from "@/app/actions/farmers/saveOrUpdate";
-import {get} from "@/app/actions/society/get";
 import Alert from "@/components/ui/alert/Alert";
 import Loading from "@/app/dashboard/loading";
 import TextAreaInput from "@/components/form/form-elements/TextAreaInput";
@@ -21,10 +19,6 @@ export const metadata: Metadata = {
 export default function FarmerDetailForm(
     {id, farmer}: { id: Number|null, farmer: any}
 ) {
-    console.log('farmer from detail form')
-    console.log(farmer)
-    console.log('farmer id prop from defail form')
-    console.log(id)
     const formTopRef = useRef<HTMLDivElement>(null);
     const [idState, setIdState] = useState<Number>(id);
     const [name, setName] = useState<string>(farmer?.name);
@@ -32,8 +26,6 @@ export default function FarmerDetailForm(
     const [taxId, setTaxId] = useState<string>(farmer?.tax_id);
     const [externalCode, setExternalCode] = useState<string>(farmer?.external_code);
     const [notes, setNotes] = useState<string>(farmer?.notes);
-
-
     const [successs, setSuccesss] = useState(false);
     const [alert, setAlert] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -100,7 +92,7 @@ export default function FarmerDetailForm(
                             </div>
                             <div>
                                 <Label>Observaciones</Label>
-                                <TextAreaInput  description={notes}/>
+                                <TextAreaInput value={notes} onChange={(val) => setNotes(val)} />
                             </div>
                         </div>
                         <div className="flex justify-end">
