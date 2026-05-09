@@ -21,8 +21,13 @@ export const metadata: Metadata = {
 export default function FarmerDetailForm({farmer}: { farmer: any}) {
     console.log('farmer from detail form')
     console.log(farmer)
-    const [name, setName] = useState(farmer?.business_name);
-    const [taxId, setTaxId] = useState(farmer?.tax_id);
+    const [name, setName] = useState<string>(farmer?.name);
+    const [lastName, setLastName] = useState<string>(farmer?.last_name);
+    const [taxId, setTaxId] = useState<string>(farmer?.tax_id);
+    const [externalCode, setExternalCode] = useState<string>(farmer?.external_code);
+    const [notes, setNotes] = useState<string>(farmer?.notes);
+
+
     const [successs, setSuccesss] = useState(false);
     const [alert, setAlert] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -32,7 +37,10 @@ export default function FarmerDetailForm({farmer}: { farmer: any}) {
         setLoading(true)
         const response = await save({
             'name': name,
-            'tax_id' : taxId
+            'last_name': lastName,
+            'tax_id' : taxId,
+            'external_code' : externalCode,
+            'notes' : notes,
         })
 
         if (response.success) {
@@ -54,17 +62,17 @@ export default function FarmerDetailForm({farmer}: { farmer: any}) {
                         <div className="grid md:grid-cols-2 md:gap-10 gap-y-4">
                             <div>
                                 <Label>Nombre</Label>
-                                <Input type="text" name="name" defaultValue={farmer?.name}/>
+                                <Input type="text" name="name" defaultValue={name}/>
                             </div>
                             <div>
                                 <Label>Apellido</Label>
-                                <Input type="text" name="last_name" defaultValue={farmer?.last_name}/>
+                                <Input type="text" name="last_name" defaultValue={lastName}/>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 gap-y-6">
                             <div>
                                 <Label>CUIT</Label>
-                                <Input type="text" name="cuit"  defaultValue={farmer?.tax_id}/>
+                                <Input type="text" name="cuit"  defaultValue={taxId}/>
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-10 gap-y-4">
                                 <div>
@@ -73,12 +81,12 @@ export default function FarmerDetailForm({farmer}: { farmer: any}) {
                                 </div>
                                 <div>
                                     <Label>Código externo</Label>
-                                    <Input type="text" name="ext_code" defaultValue={farmer?.external_code}/>
+                                    <Input type="text" name="ext_code" defaultValue={externalCode}/>
                                 </div>
                             </div>
                             <div>
                                 <Label>Observaciones</Label>
-                                <TextAreaInput  description={farmer?.notes}/>
+                                <TextAreaInput  description={notes}/>
                             </div>
                         </div>
                         <div className="flex justify-end">
