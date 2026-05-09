@@ -78,6 +78,12 @@ Represents the user's company profile. One per user. Fields: `business_name`, `t
 ### Farmer
 Represents a producer managed by a user. Multiple per user. Fields: `name`, `last_name`, `tax_id`, `external_code`, `notes`.
 
+### Establishments
+Represents the establishments managed by a Farmer. Multiple per farmer. Fields: `producer`, `name`, `external_code`, `location`, `latitude`, `longitude`. 
+
+### Plots
+Represents the plotes managed by a Farmer and a establishment. Multiple per farmer and establishment.  Fields: `farmer`, `establishment`, `active`, `area`, `latitude`, `longitude`, `external_code` .
+
 ## Conventions
 
 - Server components fetch data at render time using `getToken()` and Axios directly.
