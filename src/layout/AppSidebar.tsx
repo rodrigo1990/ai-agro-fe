@@ -49,6 +49,8 @@ const navItems: NavItem[] = [
     subItems: [
         { name: "Sociedad", path: "/dashboard/administration/society", pro: false },
         { name: "Productores", path: "/dashboard/administration/farmers", pro: false },
+        { name: "Establecimientos", path: "/dashboard/administration/establishments", pro: false },
+        { name: "Lotes", path: "/dashboard/administration/plots", pro: false },
     ],
   },
   // {
