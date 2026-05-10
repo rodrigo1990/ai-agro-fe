@@ -82,7 +82,14 @@ Represents a producer managed by a user. Multiple per user. Fields: `name`, `las
 Represents the establishments managed by a Farmer. Multiple per farmer. Fields: `producer`, `name`, `external_code`, `location`, `latitude`, `longitude`. 
 
 ### Plots
-Represents the plotes managed by a Farmer and a establishment. Multiple per farmer and establishment.  Fields: `farmer`, `establishment`, `active`, `area`, `latitude`, `longitude`, `external_code` .
+Represents the plots managed by a Farmer and a establishment. Multiple per farmer and establishment.  Fields: `farmer`, `establishment`, `active`, `area`, `latitude`, `longitude`, `external_code` .
+
+### Crop plans
+Represents the crop plans, the campaigns possess the crop plans. Fields: `crop`, `sowing_season`, `cycle`, `reference_name`, `variety_hybrid`, `sowing_distance_cm`, `target_density_seeds_ha`, `target_density_kg_ha`, `target_sowing_date`, `active`
+
+### Campaigns
+Represents the campaigns. Each campaign must have a farmer, an establishment, a plot and crop plan. Fields: `farmer_id`, `establishment_id`, `plot_id`, `crop_plan_id`, `target_sowing_date`, `sowing_date`, `emergence_date`, `dds`, `gm`, `variety_hybrid`, `sowing_system`, `des`, `target_sown_area`, `external_code`, `notes`, `active`
+
 
 ## Conventions
 

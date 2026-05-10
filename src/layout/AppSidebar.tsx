@@ -51,6 +51,8 @@ const navItems: NavItem[] = [
         { name: "Productores", path: "/dashboard/administration/farmers", pro: false },
         { name: "Establecimientos", path: "/dashboard/administration/establishments", pro: false },
         { name: "Lotes", path: "/dashboard/administration/plots", pro: false },
+        { name: "Planes de cultivo", path: "/dashboard/administration/crop-plans", pro: false },
+        { name: "Campañas", path: "/dashboard/administration/campaigns", pro: false },
     ],
   },
   // {
